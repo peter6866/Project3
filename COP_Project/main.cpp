@@ -4,7 +4,7 @@
 using namespace std;
 
 int main() {
-	ifstream data("test.csv");
+	ifstream data("test3.csv");
 	string temp;
 	getline(data, temp);
 	int date, passengers, seats, flights, ori_population,
@@ -39,11 +39,15 @@ int main() {
 		des_population = stoi(temp);
 		airport.insert(date, passengers, seats, flights, ori_population,
 			des_population, ori_city, des_city);
-		//cout << "insertion complete" << endl;
-		cout << num++ << endl;
 	}
-	cout << "start searching" << endl;
-	airport.searchDate(20061201);
-	cout << "finish searching" << endl;
+	/*cout << "start searching" << endl;
+	airport.searchDate(20000101);
+	cout << "finish searching" << endl;*/
+
+	//function 1
+	//输入起始和重点和年份
+	airport.findFlights("Aberdeen SD", "Minneapolis MN", 2000);
+
+	cout << "Program Finished" << endl;
 	return 0;
 }
