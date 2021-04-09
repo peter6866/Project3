@@ -43,6 +43,7 @@ TreeNode* insert(TreeNode* root, int date, int passengers, int seats, int flight
 			des_population, ori_city, des_city);
 		//cout << "go right" << endl;
 	}
+	return root;
 }
 
 void SearchDate(TreeNode* root, int date) {
@@ -53,11 +54,12 @@ void SearchDate(TreeNode* root, int date) {
 	while (root != nullptr) {
 		if (date < root->date)
 			root = root->left;
-		else if (date >= root->date)
+		else if (date > root->date)
 			root = root->right;
 		else {
 			cout << "successful" << endl;
 			cout << root->ori_city << "-->" << root->des_city << " date is: " << root->date << endl;
+			root = root->right;
 		}
 
 	}
@@ -97,13 +99,13 @@ int main() {
 		ori_population = stoi(temp);
 		getline(data, temp, '\n');
 		des_population = stoi(temp);
-		insert(root, date, passengers, seats, flights, ori_population,
+		root=insert(root, date, passengers, seats, flights, ori_population,
 			des_population, ori_city, des_city);
 		//cout << "insertion complete" << endl;
 		cout << num++ << endl;
 	}
 	cout << "start searching" << endl;
-	SearchDate(root, 20000101);
+	SearchDate(root, 20061201);
 	cout << "finish searching" << endl;
 	return 0;
 }
