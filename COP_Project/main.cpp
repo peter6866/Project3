@@ -44,10 +44,38 @@ int main() {
 	airport.searchDate(20000101);
 	cout << "finish searching" << endl;*/
 
-	//function 1
-	//输入起始和重点和年份
+	//function 1 test
+	//user input origin_city, des_city, and year
+	cout << "Find flights" << endl;
 	airport.findFlights("Aberdeen SD", "Minneapolis MN", 2000);
+	cout << endl;
 
-	cout << "Program Finished" << endl;
+	//function 2 test
+	//string ori_city, des_city, year;
+	cout << "Seat Occupancy" << endl;
+	airport.seatOccupancy("Aberdeen SD", "Minneapolis MN", 2000);
+	cout << endl;
+	airport.seatOccupancy("Aberdeen SD", "Minneapolis MN", 2001);
+	cout << endl;
+	airport.seatOccupancy("Aberdeen SD", "Minneapolis MN", 2002);
+	cout << endl;
+	airport.seatOccupancy("Aberdeen SD", "Minneapolis MN", 2003);
+	cout << endl;
+	airport.seatOccupancy("Aberdeen SD", "Minneapolis MN", 2004);
+	cout << endl;
+	airport.seatOccupancy("Aberdeen SD", "Minneapolis MN", 2005);
+	cout << endl;
+	airport.seatOccupancy("Aberdeen SD", "Minneapolis MN", 2006);
+	cout << endl;
+	airport.seatOccupancy("Aberdeen SD", "Minneapolis MN", 2007);
+	cout << endl;
+	airport.seatOccupancy("Aberdeen SD", "Minneapolis MN", 2008);
+	cout << endl;
+	airport.seatOccupancy("Aberdeen SD", "Minneapolis MN", 2009);
+	cout << endl;
+	//有趋势
+	
+	airport.seatOccupancy("Aberdeen SD", "Pierre SD", 2000);
+	
 	return 0;
 }

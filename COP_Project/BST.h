@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <stack>
+#include <iomanip>
 
 using namespace std;
 class BST
@@ -30,7 +31,7 @@ class BST
 
 private:
 	TreeNode* root;
-	
+
 	TreeNode* insert(TreeNode* root, int date, int passengers, int seats, int flights, int ori_population,
 		int des_population, const string& ori_city, const string& des_city) {
 		if (root == nullptr) {
@@ -81,10 +82,11 @@ private:
 		while (!s.empty()) {
 			TreeNode* temp = s.top();
 			s.pop();
-			if (temp->ori_city == ori_city && temp->des_city == des_city && (temp->date/10000) == year)
-				result.push_back(temp);
+			//inorder traversal
 			if (temp->right)
 				s.push(temp->right);
+			if (temp->ori_city == ori_city && temp->des_city == des_city && (temp->date / 10000) == year)
+				result.push_back(temp);
 			if (temp->left)
 				s.push(temp->left);
 		}
@@ -112,7 +114,7 @@ public:
 	//output flights_Num of each month
 	void findFlights(string ori_city, string des_city, int year) {
 		vector<TreeNode*> v = findFlights(root, ori_city, des_city, year);
-		
+		//output
 		for (int i = 0; i < v.size(); i++) {
 			if ((v[i]->date / 100) % 100 == 1)
 				cout << "Total flights " << "from " << v[i]->ori_city << " to " << v[i]->des_city << " in January: " << v[i]->flights << endl;
@@ -140,4 +142,24 @@ public:
 				cout << "Total flights " << "from " << v[i]->ori_city << " to " << v[i]->des_city << " in December: " << v[i]->flights << endl;
 		}
 	}
+
+	void seatOccupancy(string ori_city, string des_city, int year) {
+		vector<TreeNode*> v = findFlights(root, ori_city, des_city, year);
+
+		int passengerSum = 0;
+		int seatSum = 0;
+		float percentage;
+		for (int i = 0; i < v.size(); i++) {
+			passengerSum += v[i]->passengers;
+			seatSum += v[i]->seats;
+		}
+
+		cout << "Total passengers in " << year << ": " << passengerSum << endl;
+		cout << "Total seats in " << year << ": " << seatSum << endl;
+		cout.precision(3);
+		percentage = ((float)passengerSum / (float)seatSum) * 100;
+		cout << "Average seat Occupancy: " << percentage << "%" << endl;
+	}
+
+
 };
