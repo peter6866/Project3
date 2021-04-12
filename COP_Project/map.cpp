@@ -25,7 +25,7 @@ private:
     //Constant
     const float MAX_LOAD_FACTOR = 0.75;
     // Variable
-    vector<Node*> mapKeys;
+    vector<Node *> mapKeys;
     int mapSize;
     int mapCapacity;
     float loadFactor;
@@ -54,16 +54,21 @@ public:
         size_t mapKey = hashKey % mapCapacity;
         cout << mapKey << ", " << value << endl;
         // *add new map value;
+        // if mapKey in map is empty
+        if (mapKeys[mapKey] == nullptr)
+        {
+            Node *node = new Node(key, value, nullptr);
+            mapKeys[mapKey] = node;
+            mapSize++;
+        }
         // if have same mapKey; hash conflict
-        // if (mapKeys[mapKey] == "")
-        // {
-        //     cout << "null" << endl;
-        // }
+        // !The newly generated node is stored in the vector, and the next attribute points to the previously stored node
+        else
+        {
+            Node *node = new Node(key, value, mapKeys[mapKey]);
+            mapKeys[mapKey] = node;
+        }
 
-        Node *node = new Node(key, value, nullptr);
-
-        mapKeys[mapKey] = node;
-        mapSize++;
         // if (mapKeys[mapKey].empty())
         // {
         //     values.push_back(value);
@@ -90,10 +95,14 @@ public:
         cout << "******************" << endl;
         for (size_t i = 0; i < mapCapacity; i++)
         {
-            if ( mapKeys[i] != nullptr)
+            if (mapKeys[i] != nullptr)
             {
-                cout << i << ": " << mapKeys[i]->key << endl;
-            } 
+                while (mapKeys[i] != nullptr)
+                {
+                    cout << i << ": " << mapKeys[i]->key << endl;
+                    mapKeys[i] = mapKeys[i]->next;
+                }
+            }
         }
     }
 };
