@@ -42,7 +42,6 @@ public:
         mapSize = 0;
         mapCapacity = 3;
         loadFactor = mapSize / mapCapacity;
-
         mapKeys.resize(mapCapacity);
     }
 
@@ -52,7 +51,8 @@ public:
         // *Generate hash code
         size_t hashKey = toGenerateHashValue(key);
         size_t mapKey = hashKey % mapCapacity;
-        cout << mapKey << ", " << value << endl;
+        cout << "mapKey: " << mapKey << "   key: " << key << ", "
+             << "  value: " << value << endl;
         // *add new map value in vector;
         // if mapKey in map is empty
         if (mapKeys[mapKey] == nullptr)
@@ -73,6 +73,16 @@ public:
         }
     }
 
+    // void traverseListUtility(Node *curList)
+    // {
+    //     if (curList == nullptr)
+    //     {
+    //         return;
+    //     }
+    //     traverseListUtility(curList->next)
+    //     curList
+    // }
+
     // Check if it is overloaded, if so, expand the map capacity by a factor of 2, and re-hash all nodes to encode and store
     void ifOverloadIncreaseCapacity()
     {
@@ -81,33 +91,129 @@ public:
             cout << "increase" << endl;
             // *The map is expanded by a factor of 2. And map re-hash all node list from back to front, and set them
             mapCapacity *= 2;
-            mapKeys.resize(mapCapacity);
-            for (int i = mapCapacity / 2; i >= 0; i--)
+            vector<Node *> tempMapKeys;
+            tempMapKeys.resize(mapCapacity);
+            int tempMapSize = 0;
+            float tempLoadFactor = 0;
+            // *Traverse each element of mapkey
+            for (int i = mapCapacity / 2 - 1; i >= 0; i--)
             {
                 if (mapKeys[i] != nullptr)
                 {
-                    size_t hashKey = toGenerateHashValue(mapKeys[i]->key);
-                    size_t mapKey = hashKey % mapCapacity;
-                    swap(mapKeys[i], mapKeys[mapKey]);
+                    // * Traverse through the list elements corresponding to each mapkey element
+                    Node *curListNodeTemp = mapKeys[i]; // list head
+                    while (curListNodeTemp != nullptr)
+                    {
+                        size_t hashKey = toGenerateHashValue(curListNodeTemp->key);
+                        size_t mapKey = hashKey % mapCapacity;
+                        // * as same as push() function, no ifOverloadIncreaseCapacity()
+                        if (tempMapKeys[mapKey] == nullptr)
+                        {
+                            Node *node = new Node(curListNodeTemp->key, curListNodeTemp->value, nullptr);
+                            tempMapKeys[mapKey] = node;
+                            tempMapSize++;
+                            tempLoadFactor = (float)tempMapSize / (float)mapCapacity;
+                        }
+                        // *add new map value in node list;
+                        // if have same mapKey; hash conflict
+                        // !The newly generated node is stored in the vector, and the next attribute points to the previously stored node
+                        else
+                        {
+                            Node *node = new Node(curListNodeTemp->key, curListNodeTemp->value, tempMapKeys[mapKey]);
+                            tempMapKeys[mapKey] = node;
+                        }
+                        curListNodeTemp = curListNodeTemp->next;
+                    }
                 }
             }
+            mapKeys = tempMapKeys;
+            tempMapKeys.clear();
+            mapSize = tempMapSize;
+            loadFactor = tempLoadFactor;
         }
+    }
+
+    T_Value operator[](T_Key key)
+    {
+        cout << "*********operator*********" << endl;
+        size_t hashKey = toGenerateHashValue(key);
+        size_t mapKey = hashKey % mapCapacity;
+        cout << mapKey << ", " << key << ", " << mapKeys[mapKey]->value << endl;
+        // mapKey must be valid
+        // traverse node list until key is found, return value
+        Node *tempNode = mapKeys[mapKey];
+        T_Value value;
+        try
+        {
+
+            while (tempNode != nullptr)
+            {
+                if (tempNode->key == key)
+                {
+                    value = tempNode->value;
+                    cout << "----------operator------------" << endl;
+                    return value;
+                }
+                else
+                {
+                    tempNode = tempNode->next;
+                }
+            }
+            // If the key is not found after traversal, it means there is no key in the node list, and an error is thrown
+            throw "can not find key";
+        }
+        catch (const char *msg)
+        {
+            cerr << msg << endl;
+        }
+        cout << "----------operator------------" << endl;
+        return value;
+    }
+
+    T_Value at(T_Key key)
+    {
+        cout << "*********operator*********" << endl;
+        size_t hashKey = toGenerateHashValue(key);
+        size_t mapKey = hashKey % mapCapacity;
+        //cout << mapKey << ", " << key <<  endl;
+        // mapKey must be valid
+        // traverse node list until key is found, return value
+        Node *tempNode = mapKeys[mapKey];
+        while (tempNode != nullptr)
+        {
+            if (tempNode->key == key)
+            {
+                T_Value value = tempNode->value;
+                cout << "----------operator------------" << endl;
+                return value;
+            }
+            else
+            {
+                tempNode = tempNode->next;
+            }
+        }
+        // If the key is not found after traversal, it means there is no key in the node list, and an error is thrown
+        cerr << "error: out of range, can not find this key" << endl;
+        throw "can not find key";
     }
 
     void showAll()
     {
-        cout << "******************" << endl;
+        cout << "*********show all*********" << endl;
         for (size_t i = 0; i < mapCapacity; i++)
         {
             if (mapKeys[i] != nullptr)
             {
-                while (mapKeys[i] != nullptr)
+                Node *curListNodeTemp = mapKeys[i];
+                while (curListNodeTemp != nullptr)
                 {
-                    cout << i << ": " << mapKeys[i]->key << endl;
-                    mapKeys[i] = mapKeys[i]->next;
+                    cout << "mapKey: " << i << ": "
+                         << "  key: " << curListNodeTemp->key << "  value: " << curListNodeTemp->value << endl;
+                    curListNodeTemp = curListNodeTemp->next;
                 }
             }
         }
+        cout << "----------show all----------------" << endl;
     }
 };
 
@@ -134,7 +240,33 @@ main()
     // m.push("7", "7");
     // m.push("8", "8");
     // m.push("9", "9");
-    m.showAll();
 
+
+    cout << m.at("8") << endl;
+    cout << m.at("2")<< endl;
+    cout << m.at("3") << endl;
+    cout << m.at("14") << endl;
+    //cout << m["4"] << endl;
+    // cout << m["8"] << endl;
+    // cout << m["7"] << endl;
+    // cout << m["6"] << endl;
+    // cout << m["5"] << endl;
+    // //cout << m["4"] << endl;
+    // cout << m["16"] << endl;
+    // try
+    // {
+    //     cout << m["8"] << endl;
+    //     cout << m["7"] << endl;
+    //     cout << m["6"] << endl;
+    //     cout << m["5"] << endl;
+    //     //cout << m["4"] << endl;
+    //     cout << m["16"] << endl;
+    // }
+    // catch (const char *msg)
+    // {
+    //     cerr << msg << endl;
+    // }
+
+    m.showAll();
     return 0;
 }
