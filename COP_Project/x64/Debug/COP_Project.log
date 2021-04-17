@@ -1,2 +1,3 @@
 ﻿  main.cpp
+C:\Users\Peter\CLionProjects\p3\COP_Project\BST.h(194,7): warning C4101: “population”: 未引用的局部变量
   COP_Project.vcxproj -> C:\Users\Peter\CLionProjects\p3\x64\Debug\COP_Project.exe
