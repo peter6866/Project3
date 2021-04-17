@@ -32,10 +32,6 @@ private:
     hash<T_Key> toGenerateHashValue;
     T_Value defaultValue;
 
-    //T_Key key;
-
-    T_Value value;
-
 public:
     Map()
     {
@@ -43,6 +39,43 @@ public:
         mapCapacity = 3;
         loadFactor = mapSize / mapCapacity;
         mapKeys.resize(mapCapacity);
+
+        // // ! set defaultValue
+        // if (typeid(defaultValue).name() == typeid(bool).name()                  //bool
+        //     || typeid(defaultValue).name() == typeid(short).name()              //short
+        //     || typeid(defaultValue).name() == typeid(unsigned short).name()     //unsigned short
+        //     || typeid(defaultValue).name() == typeid(int).name()                //int
+        //     || typeid(defaultValue).name() == typeid(unsigned int).name()       //unsigned int
+        //     || typeid(defaultValue).name() == typeid(long).name()               //long
+        //     || typeid(defaultValue).name() == typeid(unsigned long).name()      //unsigned long
+        //     || typeid(defaultValue).name() == typeid(long long).name()          //long long
+        //     || typeid(defaultValue).name() == typeid(unsigned long long).name() //unsigned long long
+        //     || typeid(defaultValue).name() == typeid(float).name()              //float
+        //     || typeid(defaultValue).name() == typeid(double).name()             //double
+        //     || typeid(defaultValue).name() == typeid(long double).name()        //long double
+        // )
+        // {
+        //     try
+        //     {
+        //         defaultValue = 0;
+        //     }
+        //     catch(const std::exception& e)
+        //     {
+        //         std::cerr << e.what() << '\n';
+        //     }
+        // }
+        // else if (typeid(defaultValue).name() == typeid(char).name()                 //char
+        //          || typeid(defaultValue).name() == typeid(signed char).name()       //signed char
+        //          || typeid(defaultValue).name() == typeid(unsigned char).name()     //unsigned char
+        // )
+        // {
+        //     defaultValue = ' ';
+        // }
+        // else if (typeid(defaultValue).name() == typeid(string).name()) //string
+        // {
+        //     cout << "in string" << endl;
+        //     defaultValue = NULL;
+        // }
     }
 
     void push(T_Key const &key, T_Value const &value)
@@ -133,46 +166,9 @@ public:
         }
     }
 
-    T_Value operator[](T_Key key)
+    T_Value &at(T_Key key)
     {
-        cout << "*********operator*********" << endl;
-        size_t hashKey = toGenerateHashValue(key);
-        size_t mapKey = hashKey % mapCapacity;
-        cout << mapKey << ", " << key << ", " << mapKeys[mapKey]->value << endl;
-        // mapKey must be valid
-        // traverse node list until key is found, return value
-        Node *tempNode = mapKeys[mapKey];
-        T_Value value;
-        try
-        {
-
-            while (tempNode != nullptr)
-            {
-                if (tempNode->key == key)
-                {
-                    value = tempNode->value;
-                    cout << "----------operator------------" << endl;
-                    return value;
-                }
-                else
-                {
-                    tempNode = tempNode->next;
-                }
-            }
-            // If the key is not found after traversal, it means there is no key in the node list, and an error is thrown
-            throw "can not find key";
-        }
-        catch (const char *msg)
-        {
-            cerr << msg << endl;
-        }
-        cout << "----------operator------------" << endl;
-        return value;
-    }
-
-    T_Value at(T_Key key)
-    {
-        cout << "*********operator*********" << endl;
+        cout << "*********at*********" << endl;
         size_t hashKey = toGenerateHashValue(key);
         size_t mapKey = hashKey % mapCapacity;
         //cout << mapKey << ", " << key <<  endl;
@@ -183,8 +179,8 @@ public:
         {
             if (tempNode->key == key)
             {
-                T_Value value = tempNode->value;
-                cout << "----------operator------------" << endl;
+                T_Value &value = tempNode->value;
+                cout << "----------at------------" << endl;
                 return value;
             }
             else
@@ -195,6 +191,20 @@ public:
         // If the key is not found after traversal, it means there is no key in the node list, and an error is thrown
         cerr << "error: out of range, can not find this key" << endl;
         throw "can not find key";
+    }
+
+    T_Value &operator[](T_Key key)
+    {
+        try
+        {
+            return at(key);
+        }
+        catch (const char *msg)
+        {
+            cout << "create a new pair value" << endl;
+            push(key, defaultValue);
+        }
+        return at(key);
     }
 
     void showAll()
@@ -241,18 +251,20 @@ main()
     // m.push("8", "8");
     // m.push("9", "9");
 
-
     cout << m.at("8") << endl;
-    cout << m.at("2")<< endl;
+    cout << m.at("2") << endl;
     cout << m.at("3") << endl;
-    cout << m.at("14") << endl;
+    //cout << m.at("14") << endl;
+
+    cout << "----------[]------------" << endl;
+    cout << m["4"] << endl;
+    cout << m["8"] << endl;
+    cout << m["7"] << endl;
+    cout << m["6"] << endl;
+    cout << m["5"] << endl;
     //cout << m["4"] << endl;
-    // cout << m["8"] << endl;
-    // cout << m["7"] << endl;
-    // cout << m["6"] << endl;
-    // cout << m["5"] << endl;
-    // //cout << m["4"] << endl;
-    // cout << m["16"] << endl;
+    //m["13"] = 9999;
+    cout << m["13"] << endl;
     // try
     // {
     //     cout << m["8"] << endl;
