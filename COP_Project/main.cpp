@@ -137,14 +137,21 @@ int main() {
 			getline(cin, inputDestCity);
 			cout << "Year: ";
 			cin >> inputYear;
+			cout << endl;
 			if (DSSelection == 1)
 			{
+				auto start = system_clock::now();
 				//BST
 				//user input origin_city, des_city, and year
 				airport.findFlights(inputOriCity, inputDestCity, inputYear);
+				auto end = system_clock::now();
+				auto duration = duration_cast<microseconds>(end - start);
+				cout << "Execution time: " << double(duration.count()) * microseconds::period::num / microseconds::period::den << " seconds" << endl;
 			}
 			else if (DSSelection == 2) 
 			{
+				//MAP
+				auto start = system_clock::now();
 				int extendedDate = (inputYear * 10000) + 101;
 				for (int i = 0; i < 12; i++)
 				{
@@ -155,6 +162,9 @@ int main() {
 					extendedDate += 100;
 					key = "";
 				}
+				auto end = system_clock::now();
+				auto duration = duration_cast<microseconds>(end - start);
+				cout << "Execution time: " << double(duration.count()) * microseconds::period::num / microseconds::period::den << " seconds" << endl;
 				
 			}
 			
@@ -170,10 +180,43 @@ int main() {
 			getline(cin, inputOriCity);
 			cout << "Destination City: ";
 			getline(cin, inputDestCity);
+			cout << endl;
 
-			for (int i = 2000; i <= 2009; i++)
-				airport.seatOccupancy(inputOriCity, inputDestCity, i);
-
+			if (DSSelection == 1)
+			{
+				//BST
+				auto start = system_clock::now();
+				for (int i = 2000; i <= 2009; i++)
+					airport.seatOccupancy(inputOriCity, inputDestCity, i);
+				auto end = system_clock::now();
+				auto duration = duration_cast<microseconds>(end - start);
+				cout << "Execution time: " << double(duration.count()) * microseconds::period::num / microseconds::period::den << " seconds" << endl;
+			}
+			else if (DSSelection == 2)
+			{
+				auto start = system_clock::now();
+				for (int i = 2000; i <= 2009; i++)
+				{
+					int extendedDate = (i * 10000) + 101;
+					int passengerSum = 0, seatSum = 0;
+					float percentage = 0.0;
+					for (int j = 0; j < 12; j++)
+					{
+						string key = inputOriCity + " " + inputDestCity + " " + to_string(extendedDate);
+						passengerSum += airport2[key]->passengersN;
+						seatSum += airport2[key]->seatsN;
+						extendedDate += 100;
+					}
+					cout.precision(3);
+					percentage = ((float)passengerSum / (float)seatSum) * 100;
+					cout << "Passengers" << ": " << passengerSum << " | Seats" << ": " << seatSum << " in " << i << endl;
+					cout << "Average seat Occupancy: " << percentage << "%" << endl;
+					cout << endl;
+				}
+				auto end = system_clock::now();
+				auto duration = duration_cast<microseconds>(end - start);
+				cout << "Execution time: " << double(duration.count()) * microseconds::period::num / microseconds::period::den << " seconds" << endl;
+			}
 		}
 		else if (selection == 3)
 		{
@@ -184,12 +227,20 @@ int main() {
 			//store Y-axis in a vector
 			vector<int> passengerNum;
 			vector<int> populationNum;
-
-			for (int i = 2000; i <= 2009; i++)
+			if (DSSelection == 1)
 			{
-				passengerNum.push_back(airport.populationTrend(inputDestCity, i).first);
-				populationNum.push_back(airport.populationTrend(inputDestCity, i).second);
+				auto start = system_clock::now();
+				for (int i = 2000; i <= 2009; i++)
+				{
+					passengerNum.push_back(airport.populationTrend(inputDestCity, i).first);
+					populationNum.push_back(airport.populationTrend(inputDestCity, i).second);
+				}
+				auto end = system_clock::now();
+				auto duration = duration_cast<microseconds>(end - start);
+				cout << "Execution time: " << double(duration.count()) * microseconds::period::num / microseconds::period::den << " seconds" << endl;
 			}
+			
+			//MAP N/A
 				
 		}
 		cout << "Selection: ";
