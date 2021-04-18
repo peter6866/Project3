@@ -1,3 +1,20 @@
 ﻿  main.cpp
-C:\Users\Peter\CLionProjects\p3\COP_Project\BST.h(194,7): warning C4101: “population”: 未引用的局部变量
+C:\Users\Peter\CLionProjects\p3\COP_Project\BST.h(195,7): warning C4101: “population”: 未引用的局部变量
+C:\Users\Peter\CLionProjects\p3\COP_Project\MAP.h(150,28): warning C4101: “msg”: 未引用的局部变量
+C:\Users\Peter\CLionProjects\p3\COP_Project\MAP.h(145): message : 在编译 类 模板 成员函数“T_Value &Map<std::string,T_Value>::operator [](T_Key)”时
+          with
+          [
+              T_Value=dataNode *,
+              T_Key=std::string
+          ]
+C:\Users\Peter\CLionProjects\p3\COP_Project\main.cpp(153): message : 查看对正在编译的函数 模板 实例化“T_Value &Map<std::string,T_Value>::operator [](T_Key)”的引用
+          with
+          [
+              T_Value=dataNode *,
+              T_Key=std::string
+          ]
+C:\Users\Peter\CLionProjects\p3\COP_Project\main.cpp(41): message : 查看对正在编译的 类 模板 实例化“Map<std::string,dataNode *>”的引用
+C:\Users\Peter\CLionProjects\p3\COP_Project\MAP.h(39,30): warning C4244: “=”: 从“unsigned int”转换到“float”，可能丢失数据
+C:\Users\Peter\CLionProjects\p3\COP_Project\MAP.h(35): message : 在编译 类 模板 成员函数“Map<std::string,dataNode *>::Map(void)”时
+C:\Users\Peter\CLionProjects\p3\COP_Project\main.cpp(41): message : 查看对正在编译的函数 模板 实例化“Map<std::string,dataNode *>::Map(void)”的引用
   COP_Project.vcxproj -> C:\Users\Peter\CLionProjects\p3\x64\Debug\COP_Project.exe
