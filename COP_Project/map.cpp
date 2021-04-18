@@ -232,7 +232,7 @@ main()
     Map<string, int> m;
     //m.push("qwe", 1);
     m.push("1", 1);
-    m.push("2", 2);
+    m.push("3", 2);
     m.push("3", 3);
     m.push("4", 4);
     m.push("5", 5);
@@ -252,7 +252,7 @@ main()
     // m.push("9", "9");
 
     cout << m.at("8") << endl;
-    cout << m.at("2") << endl;
+    //cout << m.at("2") << endl;
     cout << m.at("3") << endl;
     //cout << m.at("14") << endl;
 
