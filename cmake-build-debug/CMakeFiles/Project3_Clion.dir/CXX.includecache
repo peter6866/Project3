@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/Peter/CLionProjects/Project3-Clion/BST.h
+string
+-
+iostream
+-
+vector
+-
+stack
+-
+iomanip
+-
+
+C:/Users/Peter/CLionProjects/Project3-Clion/MAP.h
+iostream
+-
+vector
+-
+
+C:/Users/Peter/CLionProjects/Project3-Clion/main.cpp
+fstream
+-
+sstream
+-
+istream
+-
+limits
+-
+chrono
+-
+BST.h
+C:/Users/Peter/CLionProjects/Project3-Clion/BST.h
+MAP.h
+C:/Users/Peter/CLionProjects/Project3-Clion/MAP.h
+
