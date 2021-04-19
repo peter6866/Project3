@@ -242,7 +242,7 @@ int main() {
 
         }
         cout << endl;
-        cout << "Selection: ";
+        cout << "Select: ";
         cin >> selection;
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
