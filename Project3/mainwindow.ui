@@ -94,7 +94,11 @@
      </widget>
     </item>
     <item row="4" column="5">
-     <widget class="QLineEdit" name="fun3_1"/>
+     <widget class="QLineEdit" name="fun3_1">
+      <property name="text">
+       <string>Los Angeles CA</string>
+      </property>
+     </widget>
     </item>
     <item row="8" column="2" colspan="4">
      <widget class="QFrame" name="chart">

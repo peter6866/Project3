@@ -226,6 +226,7 @@ public:
         lineEdit_3->setText(QCoreApplication::translate("MainWindow", "Year:", nullptr));
         lineEdit_9->setText(QCoreApplication::translate("MainWindow", "Origin City:", nullptr));
         lineEdit_11->setText(QCoreApplication::translate("MainWindow", "Destination City:", nullptr));
+        fun3_1->setText(QCoreApplication::translate("MainWindow", "Los Angeles CA", nullptr));
         fun1_1->setText(QCoreApplication::translate("MainWindow", "Atlanta GA", nullptr));
         fun2_1->setText(QCoreApplication::translate("MainWindow", "Chicago IL", nullptr));
         lineEdit_13->setText(QCoreApplication::translate("MainWindow", "City Name:", nullptr));

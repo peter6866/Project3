@@ -8,10 +8,19 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     //showBarChartView();
-    QPushButton * button = new QPushButton("click me");
     showBarChartView();
-    cout << "*in*****" << endl;
-    connect(button,SIGNAL(clicked()),this,SLOT(on_pushButton_1_clicked()));
+    ui->DisplayResult->clear();
+    runningTimeBST.clear();
+    runningTimeMap.clear();
+    if(series){
+        chart->removeSeries(series);
+        series->clear();
+    }
+    if(axis){
+        chart->removeAxis(axis);
+        axis->clear();
+    }
+    categories.clear();
 }
 
 
@@ -307,13 +316,24 @@ void MainWindow::fun(int selection){
             vector<int> populationNum;
             if (DSSelection == 1)
             {
-                auto start = system_clock::now();
+//                auto start = system_clock::now();
+                vector<string> result;
+                QElapsedTimer timer;
+                timer.start();
                 for (int i = 2001; i <= 2009; i++)
-                    airport.populationTrend(inputDestCity, i);
+                    result.push_back(airport.populationTrend(inputDestCity, i));
 
-                auto end = system_clock::now();
-                auto duration = duration_cast<microseconds>(end - start);
-                cout << "Execution time: " << double(duration.count()) * microseconds::period::num / microseconds::period::den << " seconds" << endl;
+                quint64 x = timer.nsecsElapsed();
+                int y = static_cast<int>(x);
+                qDebug() << "Execution time: " << x << "nanoseconds";
+                runningTimeBST.push_back(y);
+                ui->DisplayResult->clear();
+                for (size_t i = 0; i < result.size(); i++) {
+                    ui->DisplayResult->append(QString::fromStdString(result[i]));
+                }
+//                auto end = system_clock::now();
+//                auto duration = duration_cast<microseconds>(end - start);
+//                cout << "Execution time: " << double(duration.count()) * microseconds::period::num / microseconds::period::den << " seconds" << endl;
             }
 
             //MAP N/A
@@ -333,6 +353,11 @@ void MainWindow::fun(int selection){
 
 void MainWindow::showBarChartView()
 {
+    ui->DisplayResult->clear();
+    runningTimeBST.clear();
+    runningTimeMap.clear();
+
+
     cout << "************chart*****************" << endl;
 //    Box *box = new Box();
 //    box->makeFriends();
@@ -498,6 +523,11 @@ void MainWindow::showBarChartView()
 
 void MainWindow::on_pushButton_1_clicked()
 {
+    ui->DisplayResult->clear();
+    runningTimeBST.clear();
+    runningTimeMap.clear();
+
+
     QString hint1 = "please input Origin City:";
     ui->Display->setText(hint1);
     QString fun1_1 = ui->fun1_1->text();
@@ -528,12 +558,12 @@ void MainWindow::on_pushButton_1_clicked()
 //        barSet.push_back(set);
 //    }
     QBarSet *set1 = new QBarSet("BST");
-    QBarSet *set2 = new QBarSet("Map * 100 nanoseconds");
+    QBarSet *set2 = new QBarSet("Map * 10 nanoseconds");
     for (size_t i = 0; i < runningTimeBST.size(); i++) {
         set1->append(runningTimeBST[i]);
     }
     for (size_t i = 0; i < runningTimeMap.size(); i++) {
-        set2->append(runningTimeMap[i]*100);
+        set2->append(runningTimeMap[i]*10);
         cout << runningTimeMap[i];
     }
 
@@ -557,6 +587,11 @@ void MainWindow::on_pushButton_1_clicked()
 
 void MainWindow::on_pushButton_2_clicked()
 {
+    ui->DisplayResult->clear();
+    runningTimeBST.clear();
+    runningTimeMap.clear();
+
+
     QString hint1 = "please input Origin City:";
     ui->Display->setText(hint1);
     fun(2);
@@ -581,12 +616,12 @@ void MainWindow::on_pushButton_2_clicked()
 //        barSet.push_back(set);
 //    }
     QBarSet *set1 = new QBarSet("BST");
-    QBarSet *set2 = new QBarSet("Map * 100 nanoseconds");
+    QBarSet *set2 = new QBarSet("Map * 10 nanoseconds");
     for (size_t i = 0; i < runningTimeBST.size(); i++) {
         set1->append(runningTimeBST[i]);
     }
     for (size_t i = 0; i < runningTimeMap.size(); i++) {
-        set2->append(runningTimeMap[i]*100);
+        set2->append(runningTimeMap[i]*10);
         cout << runningTimeMap[i];
     }
 
@@ -610,15 +645,75 @@ void MainWindow::on_pushButton_2_clicked()
 
 void MainWindow::on_pushButton_3_clicked()
 {
+    ui->DisplayResult->clear();
+    runningTimeBST.clear();
+    runningTimeMap.clear();
+
+
     QString hint1 = "function 3";
     ui->Display->setText(hint1);
     fun(3);
+
+    // **********draw **************
+    if(series){
+        chart->removeSeries(series);
+        series->clear();
+    }
+    if(axis){
+        chart->removeAxis(axis);
+        axis->clear();
+    }
+    categories.clear();
+
+//    for (size_t i = 0; i < xAxis.size() ; i++) {
+//        QBarSet *set = new QBarSet(xAxis[i].c_str());
+//        for (size_t j = 0; j < runningTimeBST.size() ; j++) {
+//            set->append(runningTimeBST[j]);
+//        }
+//        series->append(set);
+//        barSet.push_back(set);
+//    }
+    QBarSet *set1 = new QBarSet("BST");
+    //QBarSet *set2 = new QBarSet("Map * 100 nanoseconds");
+    for (size_t i = 0; i < runningTimeBST.size(); i++) {
+        set1->append(runningTimeBST[i]);
+    }
+//    for (size_t i = 0; i < runningTimeMap.size(); i++) {
+//        set2->append(runningTimeMap[i]*100);
+//        cout << runningTimeMap[i];
+//    }
+
+    series->append(set1);
+    //series->append(set2);
+    chart->addSeries(series);
+    chart->setTitle("Comparison of the time to search data between the two methods");
+    chart->setAnimationOptions(QChart::SeriesAnimations);
+    //categories << "Jan" << "Feb" << "Mar" << "Apr" << "May" << "Jun";
+//    for (size_t i = 0; i < runningTimeBST.size() ; i++) {
+//        categories.append(QString::number(i));
+//    }
+//    categories << "load";
+    //axis->append(categories);
+    chart->createDefaultAxes();
+    //chart->addAxis(axis, Qt::AlignBottom);
+    chart->legend()->setVisible(true);
+    chart->legend()->setAlignment(Qt::AlignBottom);
+    chart->setParent(ui->chart);
 }
 
 
 void MainWindow::on_loadData_clicked()
 {
+    ui->DisplayResult->clear();
+    runningTimeBST.clear();
+    runningTimeMap.clear();
+
+
+    if(isLoaded == true){
+        return;
+    }
     load();
+    isLoaded = true;
     QString hint2 = "load by BST success";
     ui->Display->setText(hint2);
     DSSelection = 1;

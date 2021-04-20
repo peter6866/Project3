@@ -59,6 +59,8 @@ class MainWindow : public QMainWindow
     QBarCategoryAxis *axis;
     QChartView *chartView;
 
+    bool isLoaded;
+
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();

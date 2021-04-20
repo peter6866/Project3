@@ -219,17 +219,26 @@ public:
         return result;
     }
 
-    void populationTrend(const string& des_city, int year)
+    string populationTrend(const string& des_city, int year)
     {
         vector<TreeNode*> v = findPopulationData(root, des_city, year);
+        string result;
 
         int passengerSum = 0;
-        for (int i = 0; i < v.size(); i++)
+        for (size_t i = 0; i < v.size(); i++)
             passengerSum += v[i]->passengers;
 
-        cout << "People traveled to " << des_city << " in " << year << ": " << passengerSum << endl;
-        cout << "Population of " << des_city << " in " << year << ": " << v[0]->des_population/10 << endl;
-        cout << endl;
+        string str1 =  "People traveled to " + des_city + " in " + to_string(year) + ": " + to_string(passengerSum) + "\n";
+        string str2;
+        try {
+
+        }  catch (...) {
+            str2 =  "Population of " + des_city + " in " + to_string(year) + ": " + to_string(v[0]->des_population/10) + "\n";
+        }
+
+
+        result = str1 +  str2;
+        return result;
     }
 
 };
