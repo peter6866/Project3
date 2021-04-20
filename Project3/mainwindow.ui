@@ -25,7 +25,7 @@
     <item row="4" column="3">
      <widget class="QLineEdit" name="fun2_2">
       <property name="text">
-       <string>New Youk NY</string>
+       <string/>
       </property>
      </widget>
     </item>
@@ -96,7 +96,7 @@
     <item row="4" column="5">
      <widget class="QLineEdit" name="fun3_1">
       <property name="text">
-       <string>Los Angeles CA</string>
+       <string/>
       </property>
      </widget>
     </item>
@@ -108,14 +108,14 @@
     <item row="2" column="1">
      <widget class="QLineEdit" name="fun1_1">
       <property name="text">
-       <string>Atlanta GA</string>
+       <string/>
       </property>
      </widget>
     </item>
     <item row="3" column="3">
      <widget class="QLineEdit" name="fun2_1">
       <property name="text">
-       <string>Chicago IL</string>
+       <string/>
       </property>
      </widget>
     </item>
@@ -141,14 +141,14 @@
     <item row="3" column="1">
      <widget class="QLineEdit" name="fun1_2">
       <property name="text">
-       <string>Los Angeles CA</string>
+       <string/>
       </property>
      </widget>
     </item>
     <item row="4" column="1">
      <widget class="QLineEdit" name="fun1_3">
       <property name="text">
-       <string>2001</string>
+       <string/>
       </property>
      </widget>
     </item>

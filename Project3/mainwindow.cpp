@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    isLoaded = false;
     //showBarChartView();
     showBarChartView();
     ui->DisplayResult->clear();
@@ -33,7 +34,9 @@ MainWindow::~MainWindow()
 void MainWindow::load() {
 
     //initialize data source
-    ifstream data("final_data2.csv");
+    QString path = qApp-> applicationDirPath();
+    cout << "ppppppppppppp" << path.toStdString()  << endl;
+    ifstream data("./final_data2.csv");
     string temp;
     getline(data, temp);
     int date, passengers, seats, flights, ori_population,
@@ -707,7 +710,6 @@ void MainWindow::on_loadData_clicked()
     ui->DisplayResult->clear();
     runningTimeBST.clear();
     runningTimeMap.clear();
-
 
     if(isLoaded == true){
         return;
