@@ -201,7 +201,7 @@ public:
         int passengerSum = 0;
         int seatSum = 0;
         float percentage;
-        for (int i = 0; i < v.size(); i++) {
+        for (size_t i = 0; i < v.size(); i++) {
             passengerSum += v[i]->passengers;
             seatSum += v[i]->seats;
         }

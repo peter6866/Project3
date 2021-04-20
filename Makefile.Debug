@@ -58,7 +58,7 @@ OBJECTS       = debug/demo.o \
 		debug/mainwindow.o \
 		debug/moc_mainwindow.o
 
-DIST          = final_data2.csv Project3\BST.h \
+DIST          =  Project3\BST.h \
 		Project3\MAP.h \
 		Project3\demo.h \
 		Project3\mainwindow.h Project3\demo.cpp \

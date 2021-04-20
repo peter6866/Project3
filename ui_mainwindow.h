@@ -221,17 +221,17 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
-        fun2_2->setText(QCoreApplication::translate("MainWindow", "New Youk NY", nullptr));
+        fun2_2->setText(QString());
         loadData->setText(QCoreApplication::translate("MainWindow", "load data", nullptr));
         lineEdit_3->setText(QCoreApplication::translate("MainWindow", "Year:", nullptr));
         lineEdit_9->setText(QCoreApplication::translate("MainWindow", "Origin City:", nullptr));
         lineEdit_11->setText(QCoreApplication::translate("MainWindow", "Destination City:", nullptr));
-        fun3_1->setText(QCoreApplication::translate("MainWindow", "Los Angeles CA", nullptr));
-        fun1_1->setText(QCoreApplication::translate("MainWindow", "Atlanta GA", nullptr));
-        fun2_1->setText(QCoreApplication::translate("MainWindow", "Chicago IL", nullptr));
+        fun3_1->setText(QString());
+        fun1_1->setText(QString());
+        fun2_1->setText(QString());
         lineEdit_13->setText(QCoreApplication::translate("MainWindow", "City Name:", nullptr));
-        fun1_2->setText(QCoreApplication::translate("MainWindow", "Los Angeles CA", nullptr));
-        fun1_3->setText(QCoreApplication::translate("MainWindow", "2001", nullptr));
+        fun1_2->setText(QString());
+        fun1_3->setText(QString());
         lineEdit->setText(QCoreApplication::translate("MainWindow", "Origin City:", nullptr));
         Display->setInputMask(QString());
         Display->setText(QCoreApplication::translate("MainWindow", "Please load data first!", nullptr));

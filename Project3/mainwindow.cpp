@@ -324,7 +324,7 @@ void MainWindow::fun(int selection){
                 QElapsedTimer timer;
                 timer.start();
                 for (int i = 2001; i <= 2009; i++)
-                    result.push_back(airport.populationTrend(inputDestCity, i));
+                    result.push_back(airport.populationTrend(inputOriCity, i));
 
                 quint64 x = timer.nsecsElapsed();
                 int y = static_cast<int>(x);
@@ -531,7 +531,7 @@ void MainWindow::on_pushButton_1_clicked()
     runningTimeMap.clear();
 
 
-    QString hint1 = "please input Origin City:";
+    QString hint1 = "Function 1";
     ui->Display->setText(hint1);
     QString fun1_1 = ui->fun1_1->text();
     QString fun1_2 = ui->fun1_2->text();
@@ -595,8 +595,13 @@ void MainWindow::on_pushButton_2_clicked()
     runningTimeMap.clear();
 
 
-    QString hint1 = "please input Origin City:";
+    QString hint1 = "Function 2";
     ui->Display->setText(hint1);
+    QString fun2_1 = ui->fun2_1->text();
+    QString fun2_2 = ui->fun2_2->text();
+    //QString fun1_3 = ui->fun1_3->text();
+    inputOriCity = fun2_1.toStdString();
+    inputDestCity = fun2_2.toStdString();
     fun(2);
 
     // **********draw **************
@@ -653,8 +658,13 @@ void MainWindow::on_pushButton_3_clicked()
     runningTimeMap.clear();
 
 
-    QString hint1 = "function 3";
+    QString hint1 = "Function 3";
     ui->Display->setText(hint1);
+    QString fun3_1 = ui->fun3_1->text();
+    //QString fun1_2 = ui->fun2_2->text();
+    //QString fun1_3 = ui->fun1_3->text();
+    inputOriCity = fun3_1.toStdString();
+    //inputDestCity = fun1_2.toStdString();
     fun(3);
 
     // **********draw **************
